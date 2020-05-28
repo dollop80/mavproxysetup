@@ -11,7 +11,7 @@
 # optional: provides RTCM injection if ublox m8p is connected to usb
 # socat UDP-DATAGRAM:127.0.0.1:13320 file:/dev/ttyACM0
 mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out=udp:192.168.1.xxx:14550 --source-system=199
-mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out=udpbcast:192.168.1.255:14550 --source-system=199
+#mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out=udpbcast:192.168.1.255:14550 --source-system=199
 ```
 7. Make the script executable:
 ```
