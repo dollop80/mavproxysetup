@@ -4,14 +4,26 @@
 2. `sudo apt-get upgrade`
 3. https://github.com/aircrack-ng/rtl8812au
 4. https://ardupilot.github.io/MAVProxy/html/getting_started/download_and_installation.html
-5. Ensure `screen` is installed: `sudo apt-get install screen`
-6. Place a script in your home directory (eg `~pi/mavgateway.sh`) to start mavproxy:
+5. Install the GStreamer
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install gstreamer1.0-tools
+sudo apt-get install gstreamer1.0-plugins-good
+sudo apt-get install gstreamer1.0-plugins-bad
+sudo apt-get install gstreamer1.0-plugins-ugly
+sudo apt-get install gstreamer1.0-libav
+```
+6. Ensure `screen` is installed: `sudo apt-get install screen`
+7. Place a script in your home directory (eg `~pi/mavgateway.sh`) to start mavproxy:
 ```
 #! /bin/bash
 # optional: provides RTCM injection if ublox m8p is connected to usb
 # socat UDP-DATAGRAM:127.0.0.1:13320 file:/dev/ttyACM0
+raspivid -n -fl -w 1280 -h 720 -b 500000 -fps 30 -t 0 -o - | gst-launch-1.0 -v fdsrc ! h264parse ! rtph264pay config-interval=10 pt=96 ! udpsink host=192.168.1.xxx port=5002
 mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out=udp:192.168.1.xxx:14550 --source-system=199
 #mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out=udpbcast:192.168.1.255:14550 --source-system=199
+
 ```
 7. Make the script executable:
 ```
