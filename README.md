@@ -25,11 +25,11 @@ mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out
 #mavproxy.py --master=/dev/serial/by-id/usb-3D_Robotics_PX4_FMU_v2.x_0-if00 --out=udpbcast:192.168.1.255:14550 --source-system=199
 
 ```
-7. Make the script executable:
+8. Make the script executable:
 ```
 sudo chmod +x mavgateway.sh
 ```
-8. Create a systemd init file in `/etc/init.d/mavrelay` :
+9. Create a systemd init file in `/etc/init.d/mavrelay` :
 ```
 #! /bin/bash
 ### BEGIN INIT INFO
@@ -43,12 +43,12 @@ sudo chmod +x mavgateway.sh
 
 su - pi -c "cd ~pi; screen -L -dmS mavbarn ~pi/mavgateway.sh"
 ```
-9. Edit the permissions for mavgateway and update the system to include the mavgateway daemon upon startup:
+10. Edit the permissions for mavgateway and update the system to include the mavgateway daemon upon startup:
 ```
 sudo chmod +x /etc/init.d/mavgateway
 sudo chown root:root /etc/init.d/mavgateway
 ```
-10. Enable the service:
+11. Enable the service:
 ```
 sudo update-rc.d mavgateway defaults
 ```
